@@ -1,22 +1,22 @@
 export class Component {
-    element: HTMLElement;
+  element: HTMLElement;
 
-    constructor(
-        parentNode: HTMLElement,
-        tagName: keyof HTMLElementTagNameMap = 'div',
-        styles: string[] = [],
-        content = '',
-    ) {
-        this.element = document.createElement(tagName);
-        this.element.classList.add(...styles);
-        this.element.textContent = content;
+  constructor(
+    parentNode: HTMLElement,
+    tagName: keyof HTMLElementTagNameMap = 'div',
+    styles: string[] = [],
+    content = '',
+  ) {
+    this.element = document.createElement(tagName);
+    this.element.classList.add(...styles);
+    this.element.textContent = content;
 
-        if (parentNode) {
-            parentNode.append(this.element);
-        }
+    if (parentNode) {
+      parentNode.append(this.element);
     }
+  }
 
-    destroy(): void {
-        this.element.remove();
-    }
+  destroy(): void {
+    this.element.remove();
+  }
 }
