@@ -4,64 +4,64 @@ import { UIInput } from '../UI/input/input';
 import { ICreateCar } from '../../interfaces/index';
 
 export class OptionsInputs extends Component {
-    createCar: (state: ICreateCar) => void = () => { };
-    private input: UIInput;
-    private inputColor: UIInput;
-    private button: UIButton;
-    state = {
-        name: '',
-        color: '#000000',
+  createCar: (state: ICreateCar) => void = () => {};
+  private input: UIInput;
+  private inputColor: UIInput;
+  private button: UIButton;
+  state = {
+    name: '',
+    color: '#000000',
+  };
+
+  constructor(
+    parentNode: HTMLElement,
+    buttonText: string,
+    styles: string[] = [],
+  ) {
+    super(parentNode, 'div', ['garage-inputs']);
+
+    const inputWrapper = new Component(this.element, 'div', ['garage-input']);
+    this.input = new UIInput(inputWrapper.element, 'text', ['garage-input']);
+    this.input.getInputValue = (event) => this.updateState('name', event);
+
+    this.inputColor = new UIInput(
+      this.element,
+      'color',
+      ['garage-color-input'],
+      '#000000',
+    );
+    this.inputColor.getInputValue = (event) => this.updateState('color', event);
+
+    this.button = new UIButton(this.element, ['garage-button'], buttonText);
+    this.button.element.setAttribute('disabled', '');
+    this.button.onClickButton = () => {
+      this.createCar(this.state);
+      this.resetSettings();
     };
 
-    constructor(
-        parentNode: HTMLElement,
-        buttonText: string,
-        styles: string[] = [],
-    ) {
-        super(parentNode, 'div', ['garage-inputs']);
+    this.element.classList.add(...styles);
+  }
 
-        const inputWrapper = new Component(this.element, 'div', ['garage-input']);
-        this.input = new UIInput(inputWrapper.element, 'text', ['garage-input']);
-        this.input.getInputValue = (event) => this.updateState('name', event);
+  updateState(key: keyof ICreateCar, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.state[key] = input.value;
 
-        this.inputColor = new UIInput(
-            this.element,
-            'color',
-            ['garage-color-input'],
-            '#000000',
-        );
-        this.inputColor.getInputValue = (event) => this.updateState('color', event);
+    this.button.element.toggleAttribute('disabled', this.state.name === '');
+  }
 
-        this.button = new UIButton(this.element, ['garage-button'], buttonText);
-        this.button.element.setAttribute('disabled', '');
-        this.button.onClickButton = () => {
-            this.createCar(this.state);
-            this.resetSettings();
-        };
+  resetSettings(): void {
+    this.state = {
+      name: '',
+      color: '#000000',
+    };
 
-        this.element.classList.add(...styles);
-    }
+    this.updateInputs();
+  }
 
-    updateState(key: keyof ICreateCar, event: Event): void {
-        const input = event.target as HTMLInputElement;
-        this.state[key] = input.value;
+  updateInputs(): void {
+    (this.input.element as HTMLInputElement).value = this.state.name;
+    (this.inputColor.element as HTMLInputElement).value = this.state.color;
 
-        this.button.element.toggleAttribute('disabled', this.state.name === '');
-    }
-
-    resetSettings(): void {
-        this.state = {
-            name: '',
-            color: '#000000',
-        };
-
-        this.updateInputs();
-    }
-
-    updateInputs(): void {
-        (this.input.element as HTMLInputElement).value = this.state.name;
-        (this.inputColor.element as HTMLInputElement).value = this.state.color;
-
-        this.button.element.setAttribute('disabled', '');
-    }
+    this.button.element.setAttribute('disabled', '');
+  }
 }
