@@ -10,9 +10,9 @@ const baseUrl = 'http://localhost:3000';
 
 export const getAllWinners = async (
   page: number,
-  sort: string = 'time',
-  order: string = 'ASC',
-  limit: number = 10,
+  sort = 'time',
+  order = 'ASC',
+  limit = 10,
 ): Promise<{ result: IWinner[]; totalCount: string }> => {
   try {
     const data = await fetch(
@@ -86,8 +86,8 @@ export const deleteWinner = async (carId: number): Promise<void> => {
 };
 
 export const getAllCars = async (
-  page: number = 1,
-  limit: number = 7,
+  page = 1,
+  limit = 7,
 ): Promise<{ cars: ICar[]; count: string } | null> => {
   try {
     const data = await fetch(`${baseUrl}/garage?_limit=${limit}&_page=${page}`);
