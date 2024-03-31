@@ -1,10 +1,10 @@
 import { Component } from '../../utils/component';
 import { UIButton } from '../UI/button/button';
 import { UIInput } from '../UI/input/input';
-import { ICreateCar } from '../../interfaces/index';
+import { CreateCar } from '../../interfaces/index';
 
 export class OptionsInputs extends Component {
-  createCar: (state: ICreateCar) => void = () => {};
+  createCar: (state: CreateCar) => void = () => {};
   private input: UIInput;
   private inputColor: UIInput;
   private button: UIButton;
@@ -42,7 +42,7 @@ export class OptionsInputs extends Component {
     this.element.classList.add(...styles);
   }
 
-  updateState(key: keyof ICreateCar, event: Event): void {
+  updateState(key: keyof CreateCar, event: Event): void {
     const input = event.target as HTMLInputElement;
     this.state[key] = input.value;
 

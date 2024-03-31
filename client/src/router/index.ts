@@ -1,11 +1,11 @@
-import { IRoute } from '../interfaces';
+import { Route } from '../interfaces';
 import { Component } from '../utils/component';
 import { Garage } from '../pages/garage/garage';
 import { Winners } from '../pages/winners/winners';
 
 export class Router {
-  private readonly routes: Array<IRoute>;
-  private defaultRoute: IRoute;
+  private readonly routes: Array<Route>;
+  private defaultRoute: Route;
 
   // Pages
   garagePage: Component;

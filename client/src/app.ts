@@ -5,11 +5,11 @@ import { Header } from './components/header/header';
 export class App {
   private main;
   private router;
+  private header: Header;
 
   constructor(private rootElement: HTMLElement) {
-    const header = new Header(this.rootElement);
+    this.header = new Header(this.rootElement);
     this.main = new Component(this.rootElement, 'main', ['main']);
-
     this.router = new Router(this.main.element);
   }
 

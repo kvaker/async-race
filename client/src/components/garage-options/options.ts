@@ -1,7 +1,7 @@
 import { Component } from '../../utils/component';
 import { OptionsButtons } from './options-buttons';
 import { OptionsInputs } from './options-inputs';
-import { ICar, ICreateCar, IUpdateCar } from '../../interfaces/index';
+import { Car, CreateCar, UpdateCar } from '../../interfaces/index';
 
 import './index.scss';
 
@@ -9,8 +9,8 @@ export class GarageOptions extends Component {
   startRaceAllCars: () => void = () => {};
   resetAllCars: () => void = () => {};
   generateCars: () => void = () => {};
-  createCar: (state: ICreateCar) => void = () => {};
-  updateCar: (car: IUpdateCar) => void = () => {};
+  createCar: (state: CreateCar) => void = () => {};
+  updateCar: (car: UpdateCar) => void = () => {};
   updateInputs: OptionsInputs;
   optionsButtons: OptionsButtons;
 
@@ -35,7 +35,7 @@ export class GarageOptions extends Component {
     this.optionsButtons.generateCars = () => this.generateCars();
   }
 
-  updateState(car: ICar): void {
+  updateState(car: Car): void {
     this.updateInputs.state = car;
     this.updateInputs.updateInputs();
   }

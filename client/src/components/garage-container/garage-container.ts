@@ -1,4 +1,4 @@
-import { ICar } from '../../interfaces';
+import { Car } from '../../interfaces';
 import { Component } from '../../utils/component';
 import { GarageItem } from './garage-item';
 import { Pagination } from '../shared/pagination/pagination';
@@ -34,7 +34,7 @@ export class GarageContainer extends Component {
     this.cars = [];
   }
 
-  addItems(cars: Array<ICar>, carsLength: string): void {
+  addItems(cars: Array<Car>, carsLength: string): void {
     this.clear();
 
     this.updateTitle(carsLength);

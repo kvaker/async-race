@@ -1,41 +1,41 @@
-export interface IRoute {
+export interface Route {
   name: string;
   component: () => void;
 }
 
-export interface ICar {
+export interface Car {
   id: number;
   name: string;
   color: string;
 }
 
-export interface ICreateCar {
+export interface CreateCar {
   name: string;
   color: string;
 }
 
-export interface ICarEngine {
+export interface CarEngine {
   velocity: number;
   distance: number;
 }
 
-export interface ICarDriveMode {
+export interface CarDriveMode {
   success: boolean;
 }
 
-export interface IUpdateCar {
+export interface UpdateCar {
   id?: number;
   name: string;
   color: string;
 }
 
-export interface IWinner {
+export interface Winner {
   id: number;
   time: number;
   wins: number;
 }
 
-export interface ICarData {
+export interface CarData {
   id: number;
   name: string;
   color: string;
@@ -44,4 +44,4 @@ export interface ICarData {
   time?: number;
 }
 
-export interface IWinnerCar extends ICar, IWinner {}
+export interface WinnerCar extends Car, Winner {}

@@ -1,7 +1,7 @@
 import { Component } from '../../utils/component';
 import './index.scss';
 import { UIButton } from '../UI/button/button';
-import { ICar, ICarEngine } from '../../interfaces';
+import { Car, CarEngine } from '../../interfaces';
 import { carImage } from '../shared/car-image/car-image';
 import {
   startEngineCar,
@@ -20,11 +20,11 @@ export class GarageItem extends Component {
   private startEngineButton: UIButton;
   private stopEngineButton: UIButton;
   private imageCar: Component;
-  public car: ICar;
+  public car: Car;
   public speed = 0;
   private carAnimation: Animation | undefined;
 
-  constructor(parentNode: HTMLElement, car: ICar) {
+  constructor(parentNode: HTMLElement, car: Car) {
     super(parentNode, 'div', ['garage-item']);
     this.car = car;
 
@@ -40,8 +40,6 @@ export class GarageItem extends Component {
       if (car.id) this.removeCar(car.id);
       this.destroy();
     };
-
-    const carName = new Component(carTop.element, 'span', [], car.name);
 
     const carField = new Component(this.element, 'div', ['garage-item-field']);
 
@@ -119,7 +117,7 @@ export class GarageItem extends Component {
     };
   }
 
-  private async switchToDriveMode(car: ICarEngine): Promise<void> {
+  private async switchToDriveMode(car: CarEngine): Promise<void> {
     const driveMode = await switchToDriveMode(this.car.id);
     return new Promise((resolve) => {
       if (driveMode === 500) {

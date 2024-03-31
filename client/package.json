@@ -4,8 +4,9 @@
     "description": "Empty project template",
     "private": true,
     "scripts": {
-        "build": "webpack",
+        "build": "webpack --config webpack.config.js --env mode=prod",
         "dev": "webpack serve --env development",
+        "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint src"
     },
     "author": "VK",
