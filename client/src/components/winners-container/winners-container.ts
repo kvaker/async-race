@@ -1,5 +1,5 @@
 import { Component } from '../../utils/component';
-import { ICar, IWinner, IWinnerCar } from '../../interfaces/index';
+import { Car, Winner, WinnerCar } from '../../interfaces/index';
 import { WinnersItem } from './winners-item';
 import { getCar } from '../../api/api';
 import { Pagination } from '../shared/pagination/pagination';
@@ -12,7 +12,8 @@ export class WinnersContainer extends Component {
   private title: Component;
   private container: Component;
   pagination: Pagination;
-  winnersList: Array<IWinner> = [];
+  winnersList: Array<Winner> = [];
+  winnersItems: WinnersItem[] = [];
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['winners-container']);
@@ -75,7 +76,7 @@ export class WinnersContainer extends Component {
   }
 
   addWinners(winners: {
-    result: Array<IWinner>;
+    result: Array<Winner>;
     totalCount: string | null;
   }): void {
     this.container.element.innerHTML = '';
@@ -85,10 +86,10 @@ export class WinnersContainer extends Component {
     if (winners.totalCount) this.updateTitle(winners.totalCount);
 
     this.winnersList.forEach(async (winner) => {
-      const winnerCar: ICar | null = await this.getCar(winner.id);
+      const winnerCar: Car | null = await this.getCar(winner.id);
 
       if (winnerCar) {
-        const carData: IWinnerCar = {
+        const carData: WinnerCar = {
           id: id++,
           name: winnerCar.name,
           color: winnerCar.color,
@@ -96,7 +97,8 @@ export class WinnersContainer extends Component {
           time: winner.time,
         };
 
-        const winnerItem = new WinnersItem(this.container.element, carData);
+        const winnersItem = new WinnersItem(this.container.element, carData);
+        this.winnersItems.push(winnersItem);
       }
     });
   }

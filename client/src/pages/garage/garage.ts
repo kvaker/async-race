@@ -12,13 +12,7 @@ import {
   updateCar,
   updateWinner,
 } from '../../api/api';
-import {
-  ICar,
-  ICarData,
-  ICreateCar,
-  IUpdateCar,
-  IWinner,
-} from '../../interfaces';
+import { Car, CarData, CreateCar, UpdateCar, Winner } from '../../interfaces';
 import { randomRGBColor } from '../../components/shared/generate-rgb';
 import { cars } from '../../config/index';
 import { GarageItem } from '../../components/garage-container/garage-item';
@@ -57,7 +51,7 @@ export class Garage extends Component {
     const data = await getAllCars(page);
 
     if (data) {
-      const carsArr: Array<ICar> = data.cars;
+      const carsArr: Array<Car> = data.cars;
       const carLength: string = data.count;
       this.garageContainer.addItems(carsArr, carLength);
 
@@ -75,12 +69,12 @@ export class Garage extends Component {
     if (car) this.garageOptions.updateState(car);
   }
 
-  private async updateCar(car: IUpdateCar): Promise<void> {
+  private async updateCar(car: UpdateCar): Promise<void> {
     await updateCar(car);
     await this.getAllCars(this.page);
   }
 
-  private async createCar(car: ICreateCar): Promise<void> {
+  private async createCar(car: CreateCar): Promise<void> {
     await createCar(car);
   }
 
@@ -97,9 +91,8 @@ export class Garage extends Component {
     const { mark, model } = cars;
 
     for (let i = 0; i <= 100; i -= -1) {
-      const generateName = `${mark[Math.floor(Math.random() * mark.length)]} ${
-        model[Math.floor(Math.random() * model.length)]
-      }`;
+      const generateName = `${mark[Math.floor(Math.random() * mark.length)]} 
+      ${model[Math.floor(Math.random() * model.length)]}`;
 
       // eslint-disable-next-line no-await-in-loop
       await this.createCar({
@@ -128,7 +121,7 @@ export class Garage extends Component {
 
     const winnerCar = await Promise.race(res);
 
-    const carData: ICarData = {
+    const carData: CarData = {
       id: winnerCar.car.id,
       name: winnerCar.car.name,
       color: winnerCar.car.color,
@@ -143,7 +136,7 @@ export class Garage extends Component {
     await this.createOrUpdateWinner(carData);
   }
 
-  private async createOrUpdateWinner(winnerCar: ICarData): Promise<void> {
+  private async createOrUpdateWinner(winnerCar: CarData): Promise<void> {
     const carData = await getWinner(winnerCar.id);
 
     if (carData.status === 200) {
@@ -156,7 +149,7 @@ export class Garage extends Component {
     }
   }
 
-  private async createWinner(winnerData: ICarData): Promise<void> {
+  private async createWinner(winnerData: CarData): Promise<void> {
     const carObj = {
       id: winnerData.id,
       wins: 1,
@@ -166,8 +159,8 @@ export class Garage extends Component {
     await createWinner(carObj);
   }
 
-  private async updateWinner(winnerData: ICarData): Promise<void> {
-    const carObj: IWinner = {
+  private async updateWinner(winnerData: CarData): Promise<void> {
+    const carObj: Winner = {
       id: winnerData.id,
       wins: winnerData.wins,
       time: winnerData.speed,

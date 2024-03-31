@@ -1,10 +1,4 @@
-import {
-  ICar,
-  ICarEngine,
-  ICreateCar,
-  IUpdateCar,
-  IWinner,
-} from '../interfaces';
+import { Car, CarEngine, CreateCar, UpdateCar, Winner } from '../interfaces';
 
 const baseUrl = 'http://localhost:3000';
 
@@ -13,12 +7,12 @@ export const getAllWinners = async (
   sort = 'time',
   order = 'ASC',
   limit = 10,
-): Promise<{ result: IWinner[]; totalCount: string }> => {
+): Promise<{ result: Winner[]; totalCount: string }> => {
   try {
     const data = await fetch(
       `${baseUrl}/winners?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`,
     );
-    const res: IWinner[] = await data.json();
+    const res: Winner[] = await data.json();
 
     return {
       result: res,
@@ -31,10 +25,10 @@ export const getAllWinners = async (
 
 export const getWinner = async (
   winnerId: number,
-): Promise<{ status: number; result: IWinner }> => {
+): Promise<{ status: number; result: Winner }> => {
   try {
     const data = await fetch(`${baseUrl}/winners/${winnerId}`);
-    const res: IWinner = await data.json();
+    const res: Winner = await data.json();
 
     return {
       status: data.status,
@@ -45,7 +39,7 @@ export const getWinner = async (
   }
 };
 
-export const createWinner = async (carData: IWinner): Promise<number> => {
+export const createWinner = async (carData: Winner): Promise<number> => {
   try {
     const data = await fetch(`${baseUrl}/winners`, {
       method: 'POST',
@@ -61,7 +55,7 @@ export const createWinner = async (carData: IWinner): Promise<number> => {
   }
 };
 
-export const updateWinner = async (carData: IWinner): Promise<void> => {
+export const updateWinner = async (carData: Winner): Promise<void> => {
   try {
     await fetch(`${baseUrl}/winners/${carData.id}`, {
       method: 'PUT',
@@ -88,10 +82,10 @@ export const deleteWinner = async (carId: number): Promise<void> => {
 export const getAllCars = async (
   page = 1,
   limit = 7,
-): Promise<{ cars: ICar[]; count: string } | null> => {
+): Promise<{ cars: Car[]; count: string } | null> => {
   try {
     const data = await fetch(`${baseUrl}/garage?_limit=${limit}&_page=${page}`);
-    const res: ICar[] = await data.json();
+    const res: Car[] = await data.json();
 
     if (data.status === 200) {
       return {
@@ -106,10 +100,10 @@ export const getAllCars = async (
   }
 };
 
-export const getCar = async (carId: number): Promise<ICar | null> => {
+export const getCar = async (carId: number): Promise<Car | null> => {
   try {
     const data = await fetch(`${baseUrl}/garage/${carId}`);
-    const res: ICar = await data.json();
+    const res: Car = await data.json();
 
     if (data.status === 200) {
       return res;
@@ -121,7 +115,7 @@ export const getCar = async (carId: number): Promise<ICar | null> => {
   }
 };
 
-export const updateCar = async (car: IUpdateCar): Promise<void> => {
+export const updateCar = async (car: UpdateCar): Promise<void> => {
   try {
     await fetch(`${baseUrl}/garage/${car.id}`, {
       method: 'PUT',
@@ -135,7 +129,7 @@ export const updateCar = async (car: IUpdateCar): Promise<void> => {
   }
 };
 
-export const createCar = async (car: ICreateCar): Promise<void> => {
+export const createCar = async (car: CreateCar): Promise<void> => {
   try {
     await fetch(`${baseUrl}/garage`, {
       method: 'POST',
@@ -161,10 +155,10 @@ export const deleteCar = async (carId: number): Promise<void> => {
 
 export const startEngineCar = async (
   carId: number,
-): Promise<{ status: number; result: ICarEngine }> => {
+): Promise<{ status: number; result: CarEngine }> => {
   try {
     const data = await fetch(`${baseUrl}/engine?id=${carId}&status=started`);
-    const res: ICarEngine = await data.json();
+    const res: CarEngine = await data.json();
 
     return {
       status: data.status,
@@ -177,10 +171,10 @@ export const startEngineCar = async (
 
 export const stopEngineCar = async (
   carId: number,
-): Promise<{ status: number; result: ICarEngine }> => {
+): Promise<{ status: number; result: CarEngine }> => {
   try {
     const data = await fetch(`${baseUrl}/engine?id=${carId}&status=stopped`);
-    const res: ICarEngine = await data.json();
+    const res: CarEngine = await data.json();
 
     return {
       status: data.status,

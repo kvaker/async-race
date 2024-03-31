@@ -1,9 +1,9 @@
 import { Component } from '../../utils/component';
-import { IWinnerCar } from '../../interfaces';
+import { WinnerCar } from '../../interfaces';
 import { carImage } from '../shared/car-image/car-image';
 
 export class WinnersItem extends Component {
-  constructor(parentNode: HTMLElement, winner: IWinnerCar) {
+  constructor(parentNode: HTMLElement, winner: WinnerCar) {
     super(parentNode, 'div', ['winners-item']);
 
     const { id, name, color, wins, time } = winner;
