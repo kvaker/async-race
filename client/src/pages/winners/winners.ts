@@ -5,6 +5,8 @@ import { getAllWinners } from '../../api/api';
 export class Winners extends Component {
   winnersContainer = new WinnersContainer(this.element);
   page = 1;
+  sort = 'id';
+  order = 'ASC';
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', ['winners']);
@@ -12,10 +14,12 @@ export class Winners extends Component {
 
     this.winnersContainer.updatePage = (pageNumber) => {
       this.page = pageNumber;
-      this.getAllWinners(this.page);
+      this.getAllWinners(this.page, this.sort, this.order);
     };
     this.winnersContainer.sortWinners = (type, order) => {
-      this.getAllWinners(this.page, type, order);
+      this.sort = type;
+      this.order = order;
+      this.getAllWinners(this.page, this.sort, this.order);
     };
   }
 

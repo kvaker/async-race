@@ -36,7 +36,7 @@ const server = jsonServer.create();
 const router = jsonServer.router(db);
 const middlewares = jsonServer.defaults();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const state = { velocity: {}, blocked: {} };
 
@@ -81,14 +81,19 @@ server.get("/engine", (req, res) => {
     const x = Math.round(distance / velocity);
 
     if (new Date().getMilliseconds() % 3 === 0) {
-      setTimeout(() => {
-        delete state.velocity[id];
-        delete state.blocked[id];
-        res
-          .header("Content-Type", "application/json")
-          .status(500)
-          .send("Car has been stopped suddenly. It's engine was broken down.");
-      }, (Math.random() * x) ^ 0);
+      setTimeout(
+        () => {
+          delete state.velocity[id];
+          delete state.blocked[id];
+          res
+            .header("Content-Type", "application/json")
+            .status(500)
+            .send(
+              "Car has been stopped suddenly. It's engine was broken down."
+            );
+        },
+        (Math.random() * x) ^ 0
+      );
     } else {
       setTimeout(() => {
         delete state.velocity[id];

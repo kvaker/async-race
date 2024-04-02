@@ -157,7 +157,9 @@ export const startEngineCar = async (
   carId: number,
 ): Promise<{ status: number; result: CarEngine }> => {
   try {
-    const data = await fetch(`${baseUrl}/engine?id=${carId}&status=started`);
+    const data = await fetch(`${baseUrl}/engine?id=${carId}&status=started`, {
+      method: 'PATCH',
+    });
     const res: CarEngine = await data.json();
 
     return {
@@ -173,7 +175,9 @@ export const stopEngineCar = async (
   carId: number,
 ): Promise<{ status: number; result: CarEngine }> => {
   try {
-    const data = await fetch(`${baseUrl}/engine?id=${carId}&status=stopped`);
+    const data = await fetch(`${baseUrl}/engine?id=${carId}&status=stopped`, {
+      method: 'PATCH',
+    });
     const res: CarEngine = await data.json();
 
     return {
@@ -187,7 +191,9 @@ export const stopEngineCar = async (
 
 export const switchToDriveMode = async (carId: number): Promise<number> => {
   try {
-    const data = await fetch(`${baseUrl}/engine?id=${carId}&status=drive`);
+    const data = await fetch(`${baseUrl}/engine?id=${carId}&status=drive`, {
+      method: 'PATCH',
+    });
 
     return data.status;
   } catch (err) {
