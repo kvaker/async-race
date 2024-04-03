@@ -30,10 +30,6 @@ export class GarageItem extends Component {
 
     const carTop = new Component(this.element, 'div', ['garage-item-top']);
 
-    const carNameElement = document.createElement('div');
-    carNameElement.textContent = car.name;
-    carTop.element.appendChild(carNameElement);
-
     const selectBtn = new UIButton(carTop.element, ['btn-small'], 'select');
     selectBtn.onClickButton = () => {
       if (car.id) this.updateCar(car.id);
@@ -44,6 +40,10 @@ export class GarageItem extends Component {
       if (car.id) this.removeCar(car.id);
       this.destroy();
     };
+
+    const carNameElement = document.createElement('div');
+    carNameElement.textContent = car.name;
+    carTop.element.appendChild(carNameElement);
 
     const carField = new Component(this.element, 'div', ['garage-item-field']);
 
